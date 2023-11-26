@@ -9,6 +9,8 @@ int value;
 struct linkStruct* next;
 }*Node;
 
+Node head = NULL;
+
 Node createNode(int value){
 Node newNode = malloc(sizeof(struct linkStruct));
 newNode->value = value;
@@ -39,32 +41,32 @@ else
 
 
 
-void deleteBookByKey(Node*head,int value){
-Node t = *head;
-Node p = NULL;
+// void deleteBookByKey(Node*head,int value){
+// Node t = *head;
+// Node p = NULL;
 
-if(t->next != NULL && t->value != value){
-    p = t;
-    t = t->next; 
-}
-if(t == NULL){
-    return;
-}
-while(t != NULL){
-if(t->value == value){
-    p->next = t->next;
+// if(t->next != NULL ){
+//     p = t;
+//     t = t->next; 
+// }
+// if(t == NULL){
+//     return;
+// }
+// while(t != NULL){
+//     p->next = t->next;
     
-}
-}
-}
+// }
+// }
 
 
 
 
 void selection_sort(Node*head){
-    
-    
-    
+Node temp = *head;
+Node prev = NULL;
+  if(temp->next != NULL){
+      
+  }
     
 }
 
@@ -75,7 +77,7 @@ void selection_sort(Node*head){
 
 
 
-void displayLibrary(Node head){
+void display(Node head){
 
 if(head == NULL){
 
@@ -83,9 +85,9 @@ printf("your Library is NULL");
 
 }else{
 
-Node  a = head;
-printf("data is %d\n",a->value);
- head = head->next;
+
+printf("data is %d\n",head->value);
+ head = head -> next;
 }
 
 }
@@ -96,7 +98,16 @@ printf("data is %d\n",a->value);
 
 int main() {
    
-    
+Node head = NULL;
+  
+ insert_node(&head,1); 
+  display(head);
+ insert_node(&head,2);  
+  display(head);
+ insert_node(&head,3); 
+  display(head);
+ insert_node(&head,4); 
+  display(head);
     
     
     
