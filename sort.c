@@ -1,19 +1,16 @@
 #include <stdio.h>
 #include<stdlib.h>
-#include<malloc.h>
-#include <string.h>
 
-typedef struct linkStruct
+struct Node
 {
-int value;
-struct linkStruct* next;
-}*Node;
+int data;
+struct Node* next;
+};
 
-Node head = NULL;
 
-Node createNode(int value){
-Node newNode = malloc(sizeof(struct linkStruct));
-newNode->value = value;
+struct Node*createNode(int data){
+struct Node* newNode = malloc(sizeof(struct Node));
+newNode->data = data;
 newNode->next = NULL;
 
 return newNode;
@@ -21,72 +18,93 @@ return newNode;
 
 
 
-void insert_node(Node*head,int value){
-    Node newnode = createNode(value);
+void insert_node(struct Node**head,int data){
+    struct Node* newnode = createNode(data);
+        struct Node* t = *head;
 
 if(*head == NULL){
     *head = newnode;
+    return;
 }
 else
 {
-    Node t = *head;
     while (t->next != NULL)
     {
             t = t->next;
-            t->next = newnode; 
-
     }  
+    t->next = newnode;
 }
 }
 
 
 
-// void deleteBookByKey(Node*head,int value){
-// Node t = *head;
-// Node p = NULL;
+void swapData(struct Node* a, struct Node* b) {
+    int temp = a->data;
+    a->data = b->data;
+    b->data = temp;
+}
 
-// if(t->next != NULL ){
-//     p = t;
-//     t = t->next; 
-// }
-// if(t == NULL){
-//     return;
-// }
-// while(t != NULL){
-//     p->next = t->next;
-    
-// }
-// }
+struct Node* findMin(struct Node* head) {
+    if (head == NULL)
+        return NULL;
 
-
-
-
-void selection_sort(Node*head){
-Node temp = *head;
-Node prev = NULL;
-  if(temp->next != NULL){
-      
-  }
-    
+    struct Node* minNode = head;
+    struct Node* temp = head->next;
+    while (temp != NULL) {
+        if (temp->data < minNode->data)
+            minNode = temp;
+        temp = temp->next;
+    }
+    return minNode;
 }
 
 
 
+void selection(struct Node* head) {
+    if (head == NULL)
+        return;
+
+    struct Node* minNode = findMin(head);
+    if (minNode != head)
+        swapData(head, minNode);
+    selection(head->next);
+}
 
 
 
+struct Node*merge(struct Node*left,struct Node*right){
+  if(left == NULL) return right;
+  if(right == NULL) return left;
 
-
-void display(Node head){
-
-if(head == NULL){
-
-printf("your Library is NULL");
-
+struct Node*result = NULL;
+if(left->data <= right->data){
+    result = left;
+    result->next = merge(left->next,right);
 }else{
+   result = right;
+    result->next = merge(left,right->next); 
+}
+    return result;
+}
 
 
-printf("data is %d\n",head->value);
+
+
+
+
+
+
+
+
+
+
+void display(struct Node* head){
+
+if(head == NULL)
+return;
+
+while(head != NULL){
+printf("data is %d\n",head->data);
  head = head -> next;
 }
 
@@ -98,19 +116,23 @@ printf("data is %d\n",head->value);
 
 int main() {
    
-Node head = NULL;
+struct Node*head = NULL;
   
- insert_node(&head,1); 
-  display(head);
- insert_node(&head,2);  
-  display(head);
- insert_node(&head,3); 
-  display(head);
  insert_node(&head,4); 
+ insert_node(&head,2);
+ insert_node(&head,114); 
+ insert_node(&head,232); 
+ insert_node(&head,1546);
+ insert_node(&head,398);
+ insert_node(&head,3); 
+ insert_node(&head,1); 
+ 
   display(head);
     
-    
-    
+    selection(head);
+    printf("after \n");
+      display(head);
+
 }   
     
     
